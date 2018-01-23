@@ -20,8 +20,8 @@ public class CalculServeur {
 				String msg = in.readLine();
 				while(!msg.contentEquals("stop")) {
 					System.out.println("Message received: " + msg);
-					String resp = msg.toUpperCase() + '\n';
-					out.writeBytes(resp);
+					String resp = String.valueOf(ExpressionParser.eval(msg));
+					out.writeBytes(resp+'\n');
 					System.out.println("Response has been sent.");
 					msg = in.readLine();
 					if(msg.contentEquals("stop")) {

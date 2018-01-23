@@ -11,6 +11,7 @@ public class CalculClient {
 
 	public static void main(String[] args) {
 		Socket as = null;
+		double res = 0;
 		try {
 			as = new Socket(InetAddress.getLocalHost(), 4000);
 			System.out.println("Client: Connection established");
@@ -20,10 +21,13 @@ public class CalculClient {
 			System.out.print("Veuillez entrer une phrase : ");
 			String sentence = sc.nextLine();
 			while(!sentence.contentEquals("stop")) {
+				if(sentence.charAt(0) == '+' || sentence.charAt(0) == '-' || sentence.charAt(0) == '/' || sentence.charAt(0) == '*')
+					sentence = String.valueOf(res).concat(sentence);
 				sentence += '\n';
 				out.writeBytes(sentence);
 				System.out.println("Message sent");
 				String response = in.readLine();
+				res = Double.parseDouble(response);
 				System.out.println("Message received: " + response);
 				System.out.print("Veuillez entrer une phrase : ");
 				sentence = sc.nextLine();
