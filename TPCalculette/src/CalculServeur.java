@@ -25,9 +25,7 @@ public class CalculServeur {
 					System.out.println("Response has been sent.");
 					msg = in.readLine();
 					if(msg.contentEquals("stop")) {
-						resp = "Leaving.";
-						out.writeBytes(resp);
-						System.out.println("Response has been sent.");
+						System.out.println("Connection over");
 					}
 				}
 			}
