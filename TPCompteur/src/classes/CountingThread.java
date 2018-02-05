@@ -6,6 +6,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.*;
 
+/**
+ * This thread will allow the user to treat selected lines from the CompteurMultiThread class.
+ * It will read the lines it was given and will compute the appearances of each word he can find thanks to
+ * his CompteurSeq attribute.
+ * @author Thomas Perrier.
+ */
+
 public class CountingThread extends Thread {
 
 	private int firstLine, lastLine;
@@ -20,6 +27,11 @@ public class CountingThread extends Thread {
 		cs.countWords();
 	}
 	
+	/**
+	 * Reads the lines it was given and builds a String to send to the CompteurSeq.
+	 * @return the full String of the lines to analyze.
+	 * @throws IOException
+	 */
 	public String readLines() throws IOException {
 		String res = "";
 		for(int i = firstLine; i < lastLine; i++) {

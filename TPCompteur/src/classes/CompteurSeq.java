@@ -10,15 +10,23 @@ public class CompteurSeq {
 	private String sentence;
 	
 	public CompteurSeq(String sentence) {
+		//Initiates the class with a sentence to analyze.
 		this.sentence = sentence;
 		words = new ArrayList<String>();
 		occurs = new HashMap<String, Integer>();
+		
+		//Gathers every word in the sentence.
 		result = this.sentence.split("\\s");
+		
+		//Builds the list of words in the sentence
 		for(String s : result) {
 			words.add(s);
 		}
 	}
 	 
+	/**
+	 * Counts every time a word appears in the sentence
+	 */
 	public void countWords() {
 		for(String s : words) {
 			int count = 1;
@@ -28,6 +36,10 @@ public class CompteurSeq {
 		}
 	}
 	
+	/**
+	 * According to the HashMap, gets the most occured word.
+	 * @return the word in the HashMap with the most appearances.
+	 */
 	public String mostOccuredWord() {
 		String res = result[0];
 		for(String s : occurs.keySet()) {
@@ -53,13 +65,19 @@ public class CompteurSeq {
 		return res;
 	}
 	
+	/**
+	 * Whenever you change the sentence, resets the CompteurSeq to rebuild the list of words.
+	 */
 	public void reset() {
 		words = new ArrayList<String>();
 		occurs = new HashMap<String, Integer>();
+		
 		result = this.sentence.split("\\s");
+		
 		for(String s : result) {
 			words.add(s);
 		}
+		
 		this.countWords();
 	}
 	
