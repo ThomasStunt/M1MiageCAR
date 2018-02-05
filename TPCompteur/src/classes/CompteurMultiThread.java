@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CompteurMultiThread {
@@ -59,6 +60,21 @@ public class CompteurMultiThread {
 	    }
 	}
 	
+	public void getMostOccuredWord() {
+		HashMap<String, Integer> words = new HashMap<String, Integer>();
+		for (CountingThread ct : threads) {
+			words.putAll(ct.getCs().getOccurs());
+		}
+		String res = "";
+		for(String s : words.keySet()) {
+			if(res == "")
+				res = s;
+			if(words.get(s) > words.get(res))
+				res = s;
+		}
+		System.out.println("Most occured word : " + res + " with "+ words.get(res) + " occurencies");
+	}
+	
 	public static void main(String[] args) {
 		CompteurMultiThread cmt;
 		try {
@@ -67,6 +83,7 @@ public class CompteurMultiThread {
 			} catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
 				System.out.println("Cannot read value, default is 4");
 				cmt = new CompteurMultiThread(4, new File("test.txt"));
+				cmt.getMostOccuredWord();
 			}
 		} catch (IOException e) {
 			System.err.println(e.getMessage());

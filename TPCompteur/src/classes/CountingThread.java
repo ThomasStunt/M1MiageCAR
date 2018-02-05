@@ -16,24 +16,20 @@ public class CountingThread extends Thread {
 		this.firstLine = fLine;
 		this.lastLine = lLine;
 		this.inputFile = iFile;
-		System.out.println("\tNew Thread ! From line "+firstLine+" to line "+lastLine);
 		cs = new CompteurSeq(readLines());
-		System.out.println(cs.getSentence());
+		cs.countWords();
 	}
 	
-	public synchronized String readLines() throws IOException {
+	public String readLines() throws IOException {
 		String res = "";
-		Stream <String> lines = Files.lines(Paths.get(inputFile.getPath()));
-		try {
-			for(int i = firstLine; i <= lastLine; i++) {
-				System.out.println(i);
+		for(int i = firstLine; i < lastLine; i++) {
+			try (Stream <String> lines = Files.lines(Paths.get(inputFile.getPath()))) {
 		    	String line = lines.skip(i-1).findFirst().get();
 		    	res = res.concat(line);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
 			}
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
 		}
-		lines.close();
 		return res;
 	}
 	
