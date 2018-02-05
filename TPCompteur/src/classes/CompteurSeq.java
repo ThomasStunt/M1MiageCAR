@@ -11,12 +11,12 @@ public class CompteurSeq {
 	
 	public CompteurSeq(String sentence) {
 		//Initiates the class with a sentence to analyze.
-		this.sentence = sentence;
+		this.sentence = sentence.toLowerCase();
 		words = new ArrayList<String>();
 		occurs = new HashMap<String, Integer>();
 		
 		//Gathers every word in the sentence.
-		result = this.sentence.split("\\s");
+		result = this.sentence.split("(?=[,.])|\\s+");
 		
 		//Builds the list of words in the sentence
 		for(String s : result) {
@@ -29,10 +29,14 @@ public class CompteurSeq {
 	 */
 	public void countWords() {
 		for(String s : words) {
-			int count = 1;
-			if(occurs.containsKey(s))
-				count = occurs.get(s)+1;
-			occurs.put(s, count);
+			if(s.contentEquals(".") || s.contentEquals(","))
+				continue;
+			else {
+				int count = 1;
+				if(occurs.containsKey(s))
+					count = occurs.get(s)+1;
+				occurs.put(s, count);
+			}
 		}
 	}
 	
@@ -50,7 +54,7 @@ public class CompteurSeq {
 	}
 	
 	public static void main(String[] args) {
-		CompteurSeq cs = new CompteurSeq("salut bonjour bonjour hihi");
+		CompteurSeq cs = new CompteurSeq("salut bonjour, bonjour. hihi");
 		cs.countWords();
 		System.out.println(cs);
 		System.out.println(cs.mostOccuredWord());

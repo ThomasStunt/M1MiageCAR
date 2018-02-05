@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class CompteurMultiThread {
@@ -87,13 +90,18 @@ public class CompteurMultiThread {
 	/**
 	 * Once the threads finished the computing, gathers every thread HashMap and adds them all together.
 	 * It then looks for the most occurred word and prints it with the number of appearances in the text.
+	 * @throws InterruptedException 
 	 */
-	public void getMostOccuredWord() {
+	public synchronized void getMostOccuredWord() throws InterruptedException {
 		HashMap<String, Integer> words = new HashMap<String, Integer>();
 		
 		//Gathers every thread occurrences HashMap
 		for (CountingThread ct : threads) {
-			words.putAll(ct.getCs().getOccurs());
+			for(String s : ct.getCs().getOccurs().keySet())
+				if(words.containsKey(s))
+					words.put(s, words.get(s) + ct.getCs().getOccurs().get(s));
+				else
+					words.put(s, ct.getCs().getOccurs().get(s));
 		}
 		
 		String res = "";
@@ -110,16 +118,17 @@ public class CompteurMultiThread {
 		System.out.println("Most occured word : " + res + " with "+ words.get(res) + " appearances");
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		CompteurMultiThread cmt;
 		
 		try {
 			try {
-				cmt = new CompteurMultiThread(Integer.parseInt(args[0]), null);
+				cmt = new CompteurMultiThread(Integer.parseInt(args[0]), new File(args[1]));
 				cmt.getMostOccuredWord();
 			} catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
-				System.out.println("Cannot read value, default is 4");
-				cmt = new CompteurMultiThread(4, new File("test.txt"));
+				System.out.println("Cannot read value for number of threads or the file.");
+				System.out.println("Lauching with 4 threads and the file test.txt");
+				cmt = new CompteurMultiThread(4, new File("testbis.txt"));
 				cmt.getMostOccuredWord();
 			}
 		} catch (IOException e) {

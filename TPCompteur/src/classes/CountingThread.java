@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.NoSuchElementException;
 import java.util.stream.*;
 
 /**
@@ -20,11 +21,18 @@ public class CountingThread extends Thread {
 	private CompteurSeq cs;
 	
 	public CountingThread(int fLine, int lLine, File iFile) throws IOException {
+		System.out.println("start of thread "+getId());
 		this.firstLine = fLine;
 		this.lastLine = lLine;
 		this.inputFile = iFile;
 		cs = new CompteurSeq(readLines());
 		cs.countWords();
+		try {
+			Thread.sleep(1000);
+			System.out.println("end of thread "+getId());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -32,16 +40,17 @@ public class CountingThread extends Thread {
 	 * @return the full String of the lines to analyze.
 	 * @throws IOException
 	 */
-	public String readLines() throws IOException {
+	public synchronized String readLines() throws IOException {
 		String res = "";
 		for(int i = firstLine; i < lastLine; i++) {
 			try (Stream <String> lines = Files.lines(Paths.get(inputFile.getPath()))) {
 		    	String line = lines.skip(i-1).findFirst().get();
 		    	res = res.concat(line);
-			} catch (IllegalStateException e) {
+			} catch (IllegalStateException | NoSuchElementException e) {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("String to analyze : "+res);
 		return res;
 	}
 	
