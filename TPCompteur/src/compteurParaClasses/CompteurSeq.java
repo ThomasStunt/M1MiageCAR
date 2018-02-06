@@ -1,4 +1,4 @@
-package classes;
+package compteurParaClasses;
 import java.util.ArrayList;
 import java.util.HashMap;
 

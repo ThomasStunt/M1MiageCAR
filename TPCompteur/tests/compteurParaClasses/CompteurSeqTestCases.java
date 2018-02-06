@@ -1,9 +1,11 @@
-package classes;
+package compteurParaClasses;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import compteurParaClasses.CompteurSeq;
 
 public class CompteurSeqTestCases {
 
