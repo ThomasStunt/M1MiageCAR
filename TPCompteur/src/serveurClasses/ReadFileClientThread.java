@@ -15,7 +15,7 @@ import compteurParaClasses.CompteurMultiThread;
  * @author Thomas Perrier.
  */
 
-public class ClientThread implements Runnable {
+public class ReadFileClientThread implements Runnable {
 
 	Socket sock = null;
 	
@@ -27,7 +27,7 @@ public class ClientThread implements Runnable {
 	
 	Thread t = null;
 	
-	public ClientThread(Socket socket, CompteurServeur cs, Integer nThread) {
+	public ReadFileClientThread(Socket socket, CompteurServeur cs, Integer nThread) {
 		this.sock = socket;
 		this.cs = cs;
 		this.nThread = nThread;
