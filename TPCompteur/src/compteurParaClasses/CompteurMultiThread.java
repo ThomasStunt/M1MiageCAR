@@ -91,13 +91,12 @@ public class CompteurMultiThread {
 			}
 			System.out.println("String to analyze : "+res);
 		} else {
-			System.err.println("phrase");
-			System.out.println(sentence);
 			String[] lines = sentence.split("\n");
 			System.out.println("size of table : "+lines.length);
-			for(int i = firstLine - 1; i < lastLine; i++) {
-				res = res.concat(lines[i]);
+			for(int i = firstLine; i < lastLine; i++) {
+				res = res.concat(lines[i - 1]);
 			}
+			System.err.println("res : "+res);
 		}
 		return res;
 	}

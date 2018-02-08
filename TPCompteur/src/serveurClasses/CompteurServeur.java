@@ -18,8 +18,8 @@ public class CompteurServeur {
 		Socket as = null;
 		BufferedReader in = null;
 		DataOutputStream out = null;
-		Boolean exit = false;
 		Integer nThread;
+		
 		try {
 			nThread = Integer.parseInt(args[0]);
 		} catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
@@ -42,9 +42,11 @@ public class CompteurServeur {
 					String read = new String();
 					while(!(read = in.readLine()).contentEquals(":::END:::")) {
 						numberOfLines++;
-						System.out.println(read);
+						System.out.println("iter : "+read);
 						totalLine = totalLine.concat(read+'\n');
 					}
+					
+					System.err.println("total line : "+totalLine);
 					
 					CompteurMultiThread cmt = new CompteurMultiThread(nThread, totalLine, numberOfLines);
 					

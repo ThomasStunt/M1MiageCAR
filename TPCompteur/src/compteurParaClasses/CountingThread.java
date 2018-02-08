@@ -13,6 +13,7 @@ public class CountingThread extends Thread {
 	
 	public CountingThread(String line) {
 		System.out.println("start of thread "+getId());
+		System.out.println("line to analyze : "+line);
 		cs = new CompteurSeq(line);
 		cs.countWords();
 		try {

@@ -34,6 +34,7 @@ public class ReadFileClient {
 		
 		try {
 			as = new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[0]));
+			System.out.println("Connected to the server.");
 			out = new DataOutputStream(as.getOutputStream());
 			in = new BufferedReader(new InputStreamReader(as.getInputStream()));
 			
@@ -51,12 +52,10 @@ public class ReadFileClient {
 					exit = true;
 				}
 				
-				System.out.println(line);
-
 			}
 			
 			String response = in.readLine();
-			System.out.println(response);
+			System.out.println("\nServer reponse : "+response);
 			
 		} catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
 			System.err.println("Couldn't connect. Shutting down.");
