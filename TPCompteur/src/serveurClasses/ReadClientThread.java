@@ -15,7 +15,7 @@ import compteurParaClasses.CompteurMultiThread;
  * @author Thomas Perrier.
  */
 
-public class ReadFileClientThread implements Runnable {
+public class ReadClientThread implements Runnable {
 
 	Socket sock = null;
 	
@@ -27,7 +27,7 @@ public class ReadFileClientThread implements Runnable {
 	
 	Thread t = null;
 	
-	public ReadFileClientThread(Socket socket, CompteurServeur cs, Integer nThread) {
+	public ReadClientThread(Socket socket, CompteurServeur cs, Integer nThread) {
 		this.sock = socket;
 		this.cs = cs;
 		this.nThread = nThread;
@@ -49,7 +49,7 @@ public class ReadFileClientThread implements Runnable {
 			String read = new String();
 			while(!(read = in.readLine()).contentEquals(":::END:::")) {
 				numberOfLines++;
-				totalLine = totalLine.concat(read+'\n');
+				totalLine = totalLine.concat(read+" \n");
 			}
 			
 			//Creates a CompteurMultiThread to treat the sentence.

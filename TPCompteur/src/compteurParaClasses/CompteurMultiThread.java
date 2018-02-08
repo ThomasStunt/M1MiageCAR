@@ -173,7 +173,7 @@ public class CompteurMultiThread {
 		}
 		
 		//Prints the result.
-		System.out.println("Most occured word : " + res + " with "+ words.get(res) + " appearances");
+		System.out.println("Most occured word : " + res);
 		return res;
 	}
 
