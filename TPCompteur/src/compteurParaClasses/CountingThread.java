@@ -29,7 +29,6 @@ public class CountingThread extends Thread {
 		this.cs = cs;
 	}
 
-	@Override
 	public void run(){
 		super.run();
 	}

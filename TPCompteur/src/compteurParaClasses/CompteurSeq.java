@@ -76,7 +76,8 @@ public class CompteurSeq {
 		words = new ArrayList<String>();
 		occurs = new HashMap<String, Integer>();
 		
-		result = this.sentence.split("\\s");
+		this.sentence = sentence.toLowerCase();
+		result = this.sentence.split("(?=[,.])|\\s+");
 		
 		for(String s : result) {
 			words.add(s);
@@ -85,6 +86,10 @@ public class CompteurSeq {
 		this.countWords();
 	}
 	
+	/**
+	 * Change the sentence and resets the CompteurSeq.
+	 * @param sentence
+	 */
 	public void setSentence(String sentence) {
 		this.sentence = sentence;
 		this.reset();

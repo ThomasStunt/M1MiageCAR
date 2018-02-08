@@ -24,8 +24,11 @@ public class ReadFileClient {
 		FileInputStream fis = null;
 		BufferedReader reader = null;
 		
+		//Attempts to read the file it was given in parameter.
 		try {
-			f = new File(args[1]);			
+			f = new File(args[1]);
+			
+			//Creates InputStream and BufferedReader for the File.
 			fis = new FileInputStream(f);
 			reader = new BufferedReader(new InputStreamReader(fis));
 		} catch (ArrayIndexOutOfBoundsException | NullPointerException | FileNotFoundException e) {
@@ -33,11 +36,15 @@ public class ReadFileClient {
 		}
 		
 		try {
+			//Connecting to the server
 			as = new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[0]));
 			System.out.println("Connected to the server.");
+			
+			//Dialogs with server.
 			out = new DataOutputStream(as.getOutputStream());
 			in = new BufferedReader(new InputStreamReader(as.getInputStream()));
 			
+			//Starts reading the file
 			System.out.println("Reading file : "+f.getName());
 			
 			while(!exit) {
@@ -45,8 +52,10 @@ public class ReadFileClient {
 				String line = reader.readLine();
 				
 				if(line != null) {
+					//Normal line to read.
 					out.writeBytes(line+'\n');
 				} else {
+					//No more line to read.
 					line = ":::END:::\n";
 					out.writeBytes(line);
 					exit = true;
@@ -56,6 +65,7 @@ public class ReadFileClient {
 				
 			}
 			
+			//Printing the server response.
 			String response = in.readLine();
 			System.out.println("\nServer reponse : "+response);
 			

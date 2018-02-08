@@ -28,12 +28,12 @@ public class CompteurSeqTestCases {
 	@Test
 	public void testMostOccuredWord() {
 		cs.setSentence("I I test this shit");
-		assertEquals(cs.mostOccuredWord(), "I");
+		assertEquals(cs.mostOccuredWord(), "i");
 	}
 	
 	@Test
 	public void testIfSentenceIsModified() {
-		assertEquals(cs.mostOccuredWord(), "I");
+		assertEquals(cs.mostOccuredWord(), "i");
 		cs.setSentence("I test this this shit");
 		assertEquals(cs.getOccurs().get("this"), new Integer(2));
 		assertEquals(cs.mostOccuredWord(), "this");

@@ -23,6 +23,12 @@ public class CompteurMultiThread {
 	private int totalLines;
 	private String sentence;
 	
+	/**
+	 * Creates a CompteurMultiThread to handle a File.
+	 * @param Integer nThread
+	 * @param File f
+	 * @throws IOException
+	 */
 	public CompteurMultiThread(int nThread, File f) throws IOException {
 		this.nThread = nThread;
 		threads = new ArrayList<CountingThread>();
@@ -38,6 +44,13 @@ public class CompteurMultiThread {
 		initThreads();
 	}
 	
+	/**
+	 * Creates a CompteurMultiThread to handle a String
+	 * @param Integer nThread
+	 * @param String s
+	 * @param Integer numberOfLines
+	 * @throws IOException
+	 */
 	public CompteurMultiThread(int nThread, String s, int numberOfLines) throws IOException {
 		this.nThread = nThread;
 		threads = new ArrayList<CountingThread>();
@@ -74,7 +87,12 @@ public class CompteurMultiThread {
 	}
 	
 	/**
-	 * Reads the lines it was given and builds a String to send to the CompteurSeq.
+	 * This is a two cases function :
+	 * - If the CompteurMultiThread was instanced to handle a File, reads the file and
+	 * keeps the lines to treat and build a String to send to the CompteurSeq.
+	 * - If the CompteurMultiThread was instance to handle a String, reads the lines needed
+	 * by splitting the whole String with the \n delimiter. It then builds a String to send
+	 * to the CompteurSeq. 
 	 * @return the full String of the lines to analyze.
 	 * @throws IOException
 	 */
@@ -158,22 +176,5 @@ public class CompteurMultiThread {
 		System.out.println("Most occured word : " + res + " with "+ words.get(res) + " appearances");
 		return res;
 	}
-	
-//	public static void main(String[] args) throws InterruptedException {
-//		CompteurMultiThread cmt;
-//		
-//		try {
-//			try {
-//				cmt = new CompteurMultiThread(Integer.parseInt(args[0]), new File(args[1]));
-//				cmt.getMostOccuredWord();
-//			} catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
-//				System.out.println("Cannot read value for number of threads or the file.");
-//				System.out.println("Lauching with 4 threads and the file test.txt");
-//				cmt = new CompteurMultiThread(4, new File("testbis.txt"));
-//				cmt.getMostOccuredWord();
-//			}
-//		} catch (IOException e) {
-//			System.err.println(e.getMessage());
-//		}
-//	}
+
 }
