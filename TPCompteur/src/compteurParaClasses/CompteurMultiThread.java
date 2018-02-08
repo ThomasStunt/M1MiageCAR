@@ -89,14 +89,11 @@ public class CompteurMultiThread {
 					System.out.println("EOF detected");
 				}
 			}
-			System.out.println("String to analyze : "+res);
 		} else {
 			String[] lines = sentence.split("\n");
-			System.out.println("size of table : "+lines.length);
 			for(int i = firstLine; i < lastLine; i++) {
 				res = res.concat(lines[i - 1]);
 			}
-			System.err.println("res : "+res);
 		}
 		return res;
 	}

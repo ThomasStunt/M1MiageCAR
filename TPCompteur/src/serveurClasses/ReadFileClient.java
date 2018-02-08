@@ -52,6 +52,8 @@ public class ReadFileClient {
 					exit = true;
 				}
 				
+				System.out.println("iter : "+line);
+				
 			}
 			
 			String response = in.readLine();

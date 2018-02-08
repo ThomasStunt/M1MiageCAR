@@ -3,16 +3,14 @@ package serveurClasses;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
-
-import compteurParaClasses.CompteurMultiThread;
 
 public class CompteurServeur {
 
 	public static void main(String[] args) {
+		CompteurServeur cs = new CompteurServeur();
+		
 		System.out.println("CompteurServeur launching.");
 		ServerSocket ps = null;
 		Socket as = null;
@@ -26,35 +24,13 @@ public class CompteurServeur {
 			System.out.println("Cannot read value for the number of threads, default will be 4");
 			nThread = 4;
 		}
+		
 		try {
 			ps = new ServerSocket(7777);
 			while (true) {
 				
-				as = ps.accept();
+				new ClientThread((as = ps.accept()), cs, nThread);
 				System.out.println("Client connected.");
-				in = new BufferedReader(new InputStreamReader(as.getInputStream()));
-				out = new DataOutputStream(as.getOutputStream());
-
-				try {
-					String totalLine = "";
-					int numberOfLines = 0;
-					
-					String read = new String();
-					while(!(read = in.readLine()).contentEquals(":::END:::")) {
-						numberOfLines++;
-						System.out.println("iter : "+read);
-						totalLine = totalLine.concat(read+'\n');
-					}
-					
-					System.err.println("total line : "+totalLine);
-					
-					CompteurMultiThread cmt = new CompteurMultiThread(nThread, totalLine, numberOfLines);
-					
-					out.writeBytes("Most occured word : "+cmt.getMostOccuredWord()+'\n');
-					
-				} catch (SocketException | InterruptedException e) {
-					e.printStackTrace();
-				}
 				
 			}
 		} catch (IOException e) {

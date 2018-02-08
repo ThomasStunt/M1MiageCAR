@@ -12,13 +12,10 @@ public class CountingThread extends Thread {
 	private CompteurSeq cs;
 	
 	public CountingThread(String line) {
-		System.out.println("start of thread "+getId());
-		System.out.println("line to analyze : "+line);
 		cs = new CompteurSeq(line);
 		cs.countWords();
 		try {
 			Thread.sleep(1000);
-			System.out.println("end of thread "+getId());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
