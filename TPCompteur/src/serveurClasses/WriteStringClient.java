@@ -57,7 +57,7 @@ public static void main(String[] args) {
 			System.out.println("\nServer reponse : "+response);
 			
 		} catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-			System.err.println("Couldn't connect. Shutting down.");
+			System.err.println("Couldn't connect. Server is unreachable.");
 		}
 	}
 	

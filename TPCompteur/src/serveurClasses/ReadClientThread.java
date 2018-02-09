@@ -44,10 +44,13 @@ public class ReadClientThread implements Runnable {
 			String totalLine = "";
 			int numberOfLines = 0;
 			
-			String read = new String();
-			while(!(read = in.readLine()).contentEquals(":::END:::")) {
-				numberOfLines++;
-				totalLine = totalLine.concat(read+" \n");
+			try {
+				String read = new String();
+				while(!(read = in.readLine()).contentEquals(":::END:::")) {
+					numberOfLines++;
+					totalLine = totalLine.concat(read+" \n");
+				}
+			} catch (NullPointerException e) {
 			}
 			
 			//Creates a CompteurMultiThread to treat the sentence.
@@ -60,7 +63,7 @@ public class ReadClientThread implements Runnable {
 			sock.close();
 			
 		} catch (InterruptedException | IOException e) {
-			e.printStackTrace();
+			System.out.println("Connection interrupted, answer might be wrong.");
 		}
 	}
 

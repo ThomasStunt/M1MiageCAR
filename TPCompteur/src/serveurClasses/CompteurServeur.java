@@ -26,7 +26,6 @@ public class CompteurServeur {
 		try {
 			ps = new ServerSocket(7777);
 			while (true) {
-				
 				/* For every client connected to the server, a ClientThread will be created. It will
 				handle the analysis of the sentence and sends the most occured word in the sentence
 				to the client. */

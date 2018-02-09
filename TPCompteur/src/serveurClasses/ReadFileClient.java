@@ -24,18 +24,20 @@ public class ReadFileClient {
 		FileInputStream fis = null;
 		BufferedReader reader = null;
 		
-		//Attempts to read the file it was given in parameter.
 		try {
-			f = new File(args[1]);
+			//Attempts to read the file it was given in parameter.
+			try {
+				f = new File(args[1]);
+
+				//Creates InputStream and BufferedReader for the File.
+				fis = new FileInputStream(f);
+				reader = new BufferedReader(new InputStreamReader(fis));
+			} catch (ArrayIndexOutOfBoundsException | NullPointerException | FileNotFoundException e) {
+				e.printStackTrace();
+				
+				System.err.println("Couldn't read, unreachable file.");
+			}
 			
-			//Creates InputStream and BufferedReader for the File.
-			fis = new FileInputStream(f);
-			reader = new BufferedReader(new InputStreamReader(fis));
-		} catch (ArrayIndexOutOfBoundsException | NullPointerException | FileNotFoundException e) {
-			System.err.println("Couldn't read, unreachable file.");
-		}
-		
-		try {
 			//Connecting to the server
 			as = new Socket(InetAddress.getLocalHost(), Integer.parseInt(args[0]));
 			System.out.println("Connected to the server.");
@@ -68,7 +70,7 @@ public class ReadFileClient {
 			System.out.println("\nServer reponse : "+response);
 			
 		} catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
-			System.err.println("Couldn't connect. Shutting down.");
+			System.err.println("Couldn't connect. Server is unreachable.");
 		}
 	}
 	
