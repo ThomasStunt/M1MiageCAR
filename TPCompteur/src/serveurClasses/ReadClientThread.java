@@ -23,13 +23,11 @@ public class ReadClientThread implements Runnable {
 	DataOutputStream out = null;
 	
 	Integer nThread = null;
-	CompteurServeur cs = null;
 	
 	Thread t = null;
 	
-	public ReadClientThread(Socket socket, CompteurServeur cs, Integer nThread) {
+	public ReadClientThread(Socket socket, Integer nThread) {
 		this.sock = socket;
-		this.cs = cs;
 		this.nThread = nThread;
 		
 		t = new Thread(this);

@@ -5,13 +5,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class CompteurServeur {
-
+	
 	public static void main(String[] args) {
-		CompteurServeur cs = new CompteurServeur();
-		
 		//Launching server.
 		System.out.println("CompteurServeur launching.");
 		ServerSocket ps = null;
+		@SuppressWarnings("unused")
 		Socket as = null;
 		Integer nThread;
 		
@@ -31,7 +30,7 @@ public class CompteurServeur {
 				/* For every client connected to the server, a ClientThread will be created. It will
 				handle the analysis of the sentence and sends the most occured word in the sentence
 				to the client. */
-				new ReadClientThread((as = ps.accept()), cs, nThread);
+				new ReadClientThread((as = ps.accept()), nThread);
 				System.out.println("Client connected.");
 				
 			}

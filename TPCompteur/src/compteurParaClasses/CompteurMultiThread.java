@@ -176,5 +176,24 @@ public class CompteurMultiThread {
 		System.out.println("Most occured word : " + res);
 		return res;
 	}
+	
+	public static void main(String[] args) throws InterruptedException {
+ 		CompteurMultiThread cmt;
+ 		
+ 		try {
+ 			try {
+				cmt = new CompteurMultiThread(Integer.parseInt(args[0]), new File(args[1]));
+ 				cmt.getMostOccuredWord();
+ 			} catch (NullPointerException | ArrayIndexOutOfBoundsException | NumberFormatException e) {
+				System.out.println("Cannot read value for number of threads or the file given.");
+				System.out.println("Lauching with 4 threads and the file test.txt");
+				cmt = new CompteurMultiThread(4, new File("test.txt"));
+				System.out.println();
+ 				cmt.getMostOccuredWord();
+ 			}
+ 		} catch (IOException e) {
+ 			
+ 		}
+	}
 
 }

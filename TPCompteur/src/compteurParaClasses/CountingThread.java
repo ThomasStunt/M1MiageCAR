@@ -15,7 +15,7 @@ public class CountingThread extends Thread {
 		cs = new CompteurSeq(line);
 		cs.countWords();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

@@ -54,10 +54,16 @@ public class CompteurSeq {
 	}
 	
 	public static void main(String[] args) {
-		CompteurSeq cs = new CompteurSeq("salut bonjour, bonjour. hihi");
+		String sentence = "I can not not write";
+		try {
+			sentence = args[0];
+		} catch (NullPointerException | ArrayIndexOutOfBoundsException e) {
+			System.err.println("Couldn't read the string, default will be : 'I can not not write'");
+		}
+		CompteurSeq cs = new CompteurSeq(sentence);
 		cs.countWords();
-		System.out.println(cs);
-		System.out.println(cs.mostOccuredWord());
+		System.out.println();
+		System.out.println("Most occured word : "+cs.mostOccuredWord());
 	}
 	
 	@Override
