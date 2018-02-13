@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
+import compteurParaClasses.CountingThread;
+
 public class CompteurMultiThread {
 
 	private int nThread;
