@@ -53,4 +53,9 @@ public class Message implements MessageInterface {
 		}
 		return res;
 	}	
+	
+	public static void main(String[] args) {
+		Message m = new Message(new Client(), "salut");
+		System.out.println(m);
+	}
 }
