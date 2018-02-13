@@ -1,5 +1,56 @@
 package classes;
 
-public class Message {
+import java.util.Date;
 
+import interfaces.MessageInterface;
+
+public class Message implements MessageInterface {
+
+	private static final long serialVersionUID = -8969578158052077387L;
+
+	Client cl;
+	Date dat;
+	String cont;
+	
+	public Message(Client c, String content) {
+		this.cl = c;
+		this.dat = new Date();
+		this.cont = content;
+	}
+	
+	@Override
+	public void setContent(String content) {
+		this.cont = content;
+	}
+
+	@Override
+	public void setSource(Client c) {
+		this.cl = c;
+	}
+
+	@Override
+	public String toString() {
+		return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
+	}
+
+	@SuppressWarnings("deprecation")
+	public String getTime() {
+		String res = "";
+		int hours = dat.getHours();
+		if(hours < 10) {
+			res+="0";
+			res+=hours;
+		} else {
+			res+=hours;
+		}
+		res+=":";
+		int mins = dat.getMinutes();
+		if(mins < 10) {
+			res+="0";
+			res+=mins;
+		} else {
+			res+=mins;
+		}
+		return res;
+	}	
 }
