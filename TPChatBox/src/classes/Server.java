@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import interfaces.IClient;
+import interfaces.IMessage;
 import interfaces.IServer;
 
 public class Server extends UnicastRemoteObject implements IServer {
@@ -25,10 +26,10 @@ public class Server extends UnicastRemoteObject implements IServer {
 	
 	@Override
 	public void register(IClient c, String pwd) throws RemoteException {
-		
 		if(!clientsRegistered.containsKey(c)) {
 			clientsRegistered.put(c, pwd);
 			this.connect(c, pwd);
+			System.out.println("[INFO] Numbers of registered users : "+clientsRegistered.size());
 		} else {
 			System.out.println("[ERROR] User already exists.");
 		}
@@ -36,7 +37,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 	}
 
 	@Override
-	public boolean send(Message m) throws RemoteException {
+	public boolean send(IMessage m) throws RemoteException {
 		for(IClient c : clientsConnected)
 			c.receive(m);
 		
@@ -50,6 +51,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public void connect(IClient c, String pwd) throws RemoteException {
+		System.out.println(clientsRegistered.containsKey(c));
 		if(clientsRegistered.containsKey(c) && pwd.contentEquals(clientsRegistered.get(c))) {
 			clientsConnected.add(c);
 			System.out.println("[INFO] Client connected.");

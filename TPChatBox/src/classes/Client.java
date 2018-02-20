@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import interfaces.IClient;
+import interfaces.IMessage;
 
 public class Client extends UnicastRemoteObject implements IClient {
 
@@ -18,11 +19,11 @@ public class Client extends UnicastRemoteObject implements IClient {
 		this.passwd = passwd;
 	}
 	
-	public void receive(Message m) throws RemoteException {
+	public void receive(IMessage m) throws RemoteException {
 		System.out.println(m);
 	}
 
-	public String getLogin() throws RemoteException {
+	public String getLogin() {
 		return login;
 	}
 	

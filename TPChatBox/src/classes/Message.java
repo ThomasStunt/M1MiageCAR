@@ -31,12 +31,7 @@ public class Message implements IMessage {
 
 	@Override
 	public String toString() {
-		try {
-			return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
 	}
 
 	public String getTime() {

@@ -5,6 +5,8 @@ import java.rmi.RMISecurityManager;
 import java.util.Scanner;
 
 import classes.Client;
+import classes.Message;
+import interfaces.IMessage;
 import interfaces.IServer;
 
 @SuppressWarnings("deprecation")
@@ -22,6 +24,7 @@ public class ClientLaunch {
 			
 			Scanner sc = new Scanner(System.in);
 			
+			Client connected = null;
 			String choice;
 			
 			while(!(choice = sc.nextLine()).contentEquals("")) {
@@ -30,7 +33,8 @@ public class ClientLaunch {
 					String log = sc.nextLine();
 					System.out.println("Password : ");
 					String passwd = sc.nextLine();
-					remo.connect(new Client(log, passwd), passwd);
+					connected = new Client(log, passwd);
+					remo.connect(connected, passwd);
 					break;
 				}
 				else if(choice.contentEquals("2")) {
@@ -38,7 +42,8 @@ public class ClientLaunch {
 					String log = sc.nextLine();
 					System.out.println("Password : ");
 					String passwd = sc.nextLine();
-					remo.register(new Client(log, passwd), passwd);
+					connected = new Client(log, passwd);
+					remo.register(connected, passwd);
 					break;
 				}
 				else
@@ -46,6 +51,14 @@ public class ClientLaunch {
 			}
 			
 			System.out.println("[SUCCESS] You are now connected.");
+			System.out.println("[INFO] You can now chat with other users.");
+			
+			String msgToSend;
+			
+			while(!(msgToSend = sc.nextLine()).contentEquals("")) {
+				IMessage m = new Message(connected, msgToSend);
+				remo.send(new Message(connected, msgToSend));
+			}
 			
 			sc.close();
 			
