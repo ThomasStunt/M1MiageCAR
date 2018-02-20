@@ -49,6 +49,8 @@ public class Server extends UnicastRemoteObject implements IServer {
 	@Override
 	public void disconnect(IClient c) throws RemoteException {
 		clientsConnected.remove(c);
+		IMessage iMsg = new Message(servClient, "[INFO] User "+c.getLogin()+" left the room.");
+		this.send(iMsg);
 	}
 
 	@Override
@@ -59,6 +61,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 			System.out.println("[INFO] Client connected.");
 			IMessage iMsg = new Message(servClient, "[INFO] User "+c.getLogin()+" joined the room.");
 			this.send(iMsg);
+			System.out.println("[INFO] Numbers of connected users : "+clientsConnected.size());
 		} else {
 			System.out.println("[ERROR] Couldn't connect.");
 		}

@@ -53,18 +53,24 @@ public class ClientLaunch {
 			
 			System.out.println("[SUCCESS] You are now connected.");
 			System.out.println("[INFO] You can now chat with other users.");
+			System.out.println("[INFO] Write 'DC' to disconnect.");
 			
 			String msgToSend;
 			
 			IMessage msg;
 			
 			while(!(msgToSend = sc.nextLine()).contentEquals("")) {
-				msg = new Message(connected, msgToSend);
-				remo.send(msg);
+				if(msgToSend.contentEquals("DC")) {
+					remo.disconnect(connected);
+					break;
+				} else {
+					msg = new Message(connected, msgToSend);
+					remo.send(msg);
+				}
 			}
 			
 			sc.close();
-			
+			System.exit(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
