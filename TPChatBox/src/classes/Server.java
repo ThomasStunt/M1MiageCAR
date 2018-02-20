@@ -17,13 +17,19 @@ public class Server implements IServer {
 	}
 
 	@Override
-	public boolean send(Message m) {
+	public boolean send(Message m) throws RemoteException {
 		return false;
 	}
 
 	@Override
-	public void disconnect(Client c) {
+	public void disconnect(Client c) throws RemoteException {
 
+	}
+
+	@Override
+	public void connect(Client c) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

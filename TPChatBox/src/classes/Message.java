@@ -1,5 +1,6 @@
 package classes;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 
 import interfaces.IMessage;
@@ -30,7 +31,12 @@ public class Message implements IMessage {
 
 	@Override
 	public String toString() {
-		return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
+		try {
+			return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@SuppressWarnings("deprecation")
