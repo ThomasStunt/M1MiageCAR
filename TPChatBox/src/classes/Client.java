@@ -2,9 +2,9 @@ package classes;
 
 import java.util.UUID;
 
-import interfaces.ClientInterface;
+import interfaces.IClient;
 
-public class Client implements ClientInterface {
+public class Client implements IClient {
 
 	String login = UUID.randomUUID().toString();
 	

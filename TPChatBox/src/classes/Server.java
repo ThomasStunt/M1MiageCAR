@@ -2,9 +2,9 @@ package classes;
 
 import java.rmi.RemoteException;
 
-import interfaces.ServerInterface;
+import interfaces.IServer;
 
-public class Server implements ServerInterface {
+public class Server implements IServer {
 
 	Integer port;
 	

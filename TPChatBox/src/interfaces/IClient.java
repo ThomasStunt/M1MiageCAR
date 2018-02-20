@@ -4,6 +4,6 @@ import java.rmi.Remote;
 
 import classes.Message;
 
-public interface ClientInterface extends Remote {
+public interface IClient extends Remote {
 	public void receive(Message m);
 }

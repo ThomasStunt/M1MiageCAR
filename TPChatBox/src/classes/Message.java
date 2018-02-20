@@ -2,9 +2,9 @@ package classes;
 
 import java.util.Date;
 
-import interfaces.MessageInterface;
+import interfaces.IMessage;
 
-public class Message implements MessageInterface {
+public class Message implements IMessage {
 
 	private static final long serialVersionUID = -8969578158052077387L;
 

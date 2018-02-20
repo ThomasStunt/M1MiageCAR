@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import classes.Client;
 
-public interface MessageInterface extends Serializable {
+public interface IMessage extends Serializable {
 	public void setContent(String content);
 	public void setSource(Client c);
 }
