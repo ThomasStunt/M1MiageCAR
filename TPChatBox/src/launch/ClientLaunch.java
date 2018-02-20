@@ -50,6 +50,8 @@ public class ClientLaunch {
 				else
 					System.out.println("[ERROR] Wrong input. ");
 			}
+
+			System.out.println("\n\n\n\n\n\n");
 			
 			System.out.println("[SUCCESS] You are now connected.");
 			System.out.println("[INFO] You can now chat with other users.");
