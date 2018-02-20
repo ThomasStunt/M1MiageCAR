@@ -7,27 +7,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import interfaces.IClient;
 import interfaces.IServer;
 
 public class Server extends UnicastRemoteObject implements IServer {
 
 	private static final long serialVersionUID = 6753179322829639363L;
 	
-	protected Map<Client, String> clientsRegistered;
-	protected List<Client> clientsConnected;
+	protected Map<IClient, String> clientsRegistered;
+	protected List<IClient> clientsConnected;
 	
 	public Server() throws RemoteException {
 		super();
-		clientsRegistered = new HashMap<Client, String>();
-		clientsConnected = new ArrayList<Client>();
+		clientsRegistered = new HashMap<IClient, String>();
+		clientsConnected = new ArrayList<IClient>();
 	}
 	
 	@Override
-	public void register(Client c, String pwd) throws RemoteException {
+	public void register(IClient c, String pwd) throws RemoteException {
 		
 		if(!clientsRegistered.containsKey(c)) {
 			clientsRegistered.put(c, pwd);
-			this.connect(c);
+			this.connect(c, pwd);
 		} else {
 			System.out.println("[ERROR] User already exists.");
 		}
@@ -36,20 +37,25 @@ public class Server extends UnicastRemoteObject implements IServer {
 
 	@Override
 	public boolean send(Message m) throws RemoteException {
-		for(Client c : clientsConnected)
+		for(IClient c : clientsConnected)
 			c.receive(m);
 		
 		return false;
 	}
 
 	@Override
-	public void disconnect(Client c) throws RemoteException {
+	public void disconnect(IClient c) throws RemoteException {
 		clientsConnected.remove(c);
 	}
 
 	@Override
-	public void connect(Client c) throws RemoteException {
-		clientsConnected.add(c);
+	public void connect(IClient c, String pwd) throws RemoteException {
+		if(clientsRegistered.containsKey(c) && pwd.contentEquals(clientsRegistered.get(c))) {
+			clientsConnected.add(c);
+			System.out.println("[INFO] Client connected.");
+		} else {
+			System.out.println("[ERROR] Couldn't connect.");
+		}
 	}
 
 }

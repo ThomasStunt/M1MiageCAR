@@ -7,8 +7,8 @@ import classes.Client;
 import classes.Message;
 
 public interface IServer extends Remote {
-	public void register(Client c, String s) throws RemoteException;
-	public void connect(Client c) throws RemoteException;
+	public void register(IClient c, String s) throws RemoteException;
+	public void connect(IClient c, String s) throws RemoteException;
 	public boolean send(Message m) throws RemoteException;
-	public void disconnect(Client c) throws RemoteException;
+	public void disconnect(IClient c) throws RemoteException;
 }
