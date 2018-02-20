@@ -1,16 +1,21 @@
 package classes;
 
 import java.rmi.RemoteException;
-import java.util.UUID;
+import java.rmi.server.UnicastRemoteObject;
 
 import interfaces.IClient;
 
-public class Client implements IClient {
+public class Client extends UnicastRemoteObject implements IClient {
 
-	String login = UUID.randomUUID().toString();
+	private static final long serialVersionUID = 5702976698815591119L;
+
+	protected String login;
+	protected String passwd;
 	
-	public Client() {
-		
+	public Client(String login, String passwd) throws RemoteException {
+		super();
+		this.login = login;
+		this.passwd = passwd;
 	}
 	
 	public void receive(Message m) throws RemoteException {

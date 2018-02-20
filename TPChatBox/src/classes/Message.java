@@ -39,29 +39,25 @@ public class Message implements IMessage {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	public String getTime() {
 		String res = "";
 		int hours = dat.getHours();
+		
 		if(hours < 10) {
-			res+="0";
-			res+=hours;
+			res+="0"+hours;
 		} else {
 			res+=hours;
 		}
+		
 		res+=":";
 		int mins = dat.getMinutes();
+		
 		if(mins < 10) {
-			res+="0";
-			res+=mins;
+			res+="0"+mins;
 		} else {
 			res+=mins;
 		}
+		
 		return res;
-	}	
-	
-	public static void main(String[] args) {
-		Message m = new Message(new Client(), "salut");
-		System.out.println(m);
 	}
 }
