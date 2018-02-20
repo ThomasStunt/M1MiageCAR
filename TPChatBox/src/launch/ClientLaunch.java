@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import classes.Client;
 import classes.Message;
+import interfaces.IClient;
 import interfaces.IMessage;
 import interfaces.IServer;
 
@@ -24,7 +25,7 @@ public class ClientLaunch {
 			
 			Scanner sc = new Scanner(System.in);
 			
-			Client connected = null;
+			IClient connected = null;
 			String choice;
 			
 			while(!(choice = sc.nextLine()).contentEquals("")) {
@@ -55,9 +56,11 @@ public class ClientLaunch {
 			
 			String msgToSend;
 			
+			IMessage msg;
+			
 			while(!(msgToSend = sc.nextLine()).contentEquals("")) {
-				IMessage m = new Message(connected, msgToSend);
-				remo.send(new Message(connected, msgToSend));
+				msg = new Message(connected, msgToSend);
+				remo.send(msg);
 			}
 			
 			sc.close();

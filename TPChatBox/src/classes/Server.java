@@ -17,11 +17,13 @@ public class Server extends UnicastRemoteObject implements IServer {
 	
 	protected Map<IClient, String> clientsRegistered;
 	protected List<IClient> clientsConnected;
+	protected IClient servClient;
 	
 	public Server() throws RemoteException {
 		super();
 		clientsRegistered = new HashMap<IClient, String>();
 		clientsConnected = new ArrayList<IClient>();
+		servClient = new Client("Server", "admin");
 	}
 	
 	@Override
@@ -55,9 +57,15 @@ public class Server extends UnicastRemoteObject implements IServer {
 		if(clientsRegistered.containsKey(c) && pwd.contentEquals(clientsRegistered.get(c))) {
 			clientsConnected.add(c);
 			System.out.println("[INFO] Client connected.");
+			IMessage iMsg = new Message(servClient, "[INFO] User "+c.getLogin()+" joined the room.");
+			this.send(iMsg);
 		} else {
 			System.out.println("[ERROR] Couldn't connect.");
 		}
+	}
+	
+	public List<IClient> getClientsConnected() {
+		return clientsConnected;
 	}
 
 }

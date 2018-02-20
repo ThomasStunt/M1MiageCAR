@@ -3,17 +3,18 @@ package classes;
 import java.rmi.RemoteException;
 import java.util.Date;
 
+import interfaces.IClient;
 import interfaces.IMessage;
 
 public class Message implements IMessage {
 
 	private static final long serialVersionUID = -8969578158052077387L;
 
-	Client cl;
+	IClient cl;
 	Date dat;
 	String cont;
 	
-	public Message(Client c, String content) {
+	public Message(IClient c, String content) {
 		this.cl = c;
 		this.dat = new Date();
 		this.cont = content;
@@ -25,13 +26,18 @@ public class Message implements IMessage {
 	}
 
 	@Override
-	public void setSource(Client c) {
+	public void setSource(IClient c) {
 		this.cl = c;
 	}
 
 	@Override
 	public String toString() {
-		return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
+		try {
+			return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public String getTime() {
