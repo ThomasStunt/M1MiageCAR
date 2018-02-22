@@ -27,7 +27,6 @@ public class ClientLaunch {
 		connected = null;
 		
 		Runtime.getRuntime().addShutdownHook(new Thread() {
-			@Override
 			public void run() {
 				try {
 					remo.disconnect(connected);
@@ -56,11 +55,10 @@ public class ClientLaunch {
 					System.out.println("Password : ");
 					String passwd = sc.nextLine();
 					connected = new Client(log, passwd);
-					try {
-						remo.connect(connected, passwd);
-						break;
-					} catch (Exception e) {
-						e.printStackTrace();
+					if(!remo.connect(connected, passwd)) {
+						System.out.println("[ERROR] User "+connected.getLogin()+" is already connected.");
+						connected = null;
+						System.exit(0);
 					}
 				}
 				else if(choice.contentEquals("2")) {
@@ -97,7 +95,7 @@ public class ClientLaunch {
 			}
 			
 			sc.close();
-			System.exit(-1);
+			Runtime.getRuntime().exit(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
