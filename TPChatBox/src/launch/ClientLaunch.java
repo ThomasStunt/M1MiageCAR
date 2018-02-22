@@ -2,6 +2,7 @@ package launch;
 
 import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 import classes.Client;
@@ -12,7 +13,30 @@ import interfaces.IServer;
 
 @SuppressWarnings("deprecation")
 public class ClientLaunch {
+	
+	static IServer remo;
+	static IClient connected;
+	
 	public static void main(String[] args) {
+		try {
+			remo = (IServer) Naming.lookup("rmi://localhost:1099/ChatBox");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		connected = null;
+		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			@Override
+			public void run() {
+				try {
+					remo.disconnect(connected);
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
 		try {
 			
 			System.setProperty("java.security.policy", "file:./permissions.policy");
@@ -21,11 +45,8 @@ public class ClientLaunch {
 			System.out.println("[SUCCESS] Client launched.");
 			System.out.println("\nPress 1 to connect / 2 to register.");
 			
-			IServer remo = (IServer) Naming.lookup("rmi://localhost:1099/ChatBox");
-			
 			Scanner sc = new Scanner(System.in);
 			
-			IClient connected = null;
 			String choice;
 			
 			while(!(choice = sc.nextLine()).contentEquals("")) {
@@ -35,8 +56,12 @@ public class ClientLaunch {
 					System.out.println("Password : ");
 					String passwd = sc.nextLine();
 					connected = new Client(log, passwd);
-					remo.connect(connected, passwd);
-					break;
+					try {
+						remo.connect(connected, passwd);
+						break;
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 				else if(choice.contentEquals("2")) {
 					System.out.println("Login to register : ");
@@ -72,7 +97,7 @@ public class ClientLaunch {
 			}
 			
 			sc.close();
-			System.exit(0);
+			System.exit(-1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

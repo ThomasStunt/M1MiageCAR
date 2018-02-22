@@ -1,29 +1,42 @@
 package gui;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RMISecurityManager;
+import java.rmi.RemoteException;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import interfaces.IServer;
 
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 3115028229497297295L;
 
+	protected IServer remo;
+	
 	public ClientUI() {
 		super();
-		this.setContentPane(new ConnexionPanel());
+		
+		System.setProperty("java.security.policy", "file:./permissions.policy");
+		System.setSecurityManager(new RMISecurityManager());
+		
+		System.out.println("[SUCCESS] Client launched.");
+		
+		try {
+			remo = (IServer) Naming.lookup("rmi://localhost:1099/ChatBox");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			e.printStackTrace();
+		}
+		
+		this.setContentPane(new HomePanel(this, remo));
 		this.setPreferredSize(new Dimension(400,300));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.pack();
@@ -34,53 +47,12 @@ public class ClientUI extends JFrame {
 		new ClientUI();
 	}
 	
-	private class ConnexionPanel extends JPanel {
-		
-		private static final long serialVersionUID = -1388708028473335100L;
-
-		protected JButton connectButton;
-		protected JButton registerButton;
-		
-		public ConnexionPanel() {
-			registerButton = new JButton("Register");
-			registerButton.setPreferredSize(new Dimension(150,28));
-			
-			GridBagConstraints gbc = new GridBagConstraints();
-			this.setLayout(new GridBagLayout());
-			
-			gbc.gridx = 0;
-			gbc.insets = new Insets(10, 0, 10, 0);
-			
-			this.add(configConnectButton(), gbc);
-			this.add(registerButton, gbc);
-		}
-		
-		public JButton configConnectButton() {
-			connectButton = new JButton("Connect");
-			connectButton.setPreferredSize(new Dimension(150,28));
-			
-			connectButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});
-
-			connectButton.addKeyListener(new KeyListener() {
-				public void keyTyped(KeyEvent e) {
-				}
-				
-				public void keyReleased(KeyEvent e) {
-				}
-				
-				public void keyPressed(KeyEvent e) {
-					if(e.equals(KeyEvent.VK_ENTER))
-						connectButton.doClick();
-				}
-			});
-			
-			return connectButton;
-		}
-		
+	public void switchPanel(JPanel p) {
+		this.setVisible(false);
+		this.getContentPane().removeAll();
+		this.getContentPane().add(p);
+		this.pack();
+		this.setVisible(true);
 	}
 	
 }
