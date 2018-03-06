@@ -10,16 +10,23 @@ import java.rmi.RemoteException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import interfaces.IClient;
 import interfaces.IServer;
 
+@SuppressWarnings("deprecation")
 public class ClientUI extends JFrame {
 
 	private static final long serialVersionUID = 3115028229497297295L;
 
-	protected IServer remo;
+	protected static IServer remo;
+	protected IClient connected;
 	
 	public ClientUI() {
 		super();
+		
+		this.setTitle("Chat");
+
+		connected = null;
 		
 		System.setProperty("java.security.policy", "file:./permissions.policy");
 		System.setSecurityManager(new RMISecurityManager());
@@ -44,7 +51,18 @@ public class ClientUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new ClientUI();
+		ClientUI main = new ClientUI();
+		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+			public void run() {
+				try {
+					if(main.getConnected() != null)
+						remo.disconnect(main.getConnected());
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public void switchPanel(JPanel p) {
@@ -53,6 +71,14 @@ public class ClientUI extends JFrame {
 		this.getContentPane().add(p);
 		this.pack();
 		this.setVisible(true);
+	}
+
+	public IClient getConnected() {
+		return connected;
+	}
+	
+	public void setConnected(IClient connected) {
+		this.connected = connected;
 	}
 	
 }

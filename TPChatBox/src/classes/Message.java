@@ -13,16 +13,29 @@ public class Message implements IMessage {
 	IClient cl;
 	Date dat;
 	String cont;
-	
-	public Message(IClient c, String content) {
+	Boolean priv;
+	Boolean send;
+
+	public Message(IClient c, String content, Boolean isPrivate) {
 		this.cl = c;
 		this.dat = new Date();
 		this.cont = content;
+		this.priv = isPrivate;
 	}
-	
+
+	@Override
+	public String getContent() {
+		return this.cont;
+	}
+
 	@Override
 	public void setContent(String content) {
 		this.cont = content;
+	}
+
+	@Override
+	public IClient getSource() {
+		return cl;
 	}
 
 	@Override
@@ -32,33 +45,42 @@ public class Message implements IMessage {
 
 	@Override
 	public String toString() {
-		try {
-			return cl.getLogin()+" ("+this.getTime()+") : "+this.cont;
-		} catch (RemoteException e) {
-			e.printStackTrace();
+		if (!this.priv) {
+			try {
+				return cl.getLogin() + " (" + this.getTime() + ") : " + this.cont;
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				return "[PM From : " + cl.getLogin() + " to " + this.cont.substring(1).split(" ")[0] + "] : " + this.cont.substring(cont.substring(1).split(" ")[0].length()+2);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 		}
 		return "";
 	}
 
+	@SuppressWarnings("deprecation")
 	public String getTime() {
 		String res = "";
 		int hours = dat.getHours();
-		
-		if(hours < 10) {
-			res+="0"+hours;
+
+		if (hours < 10) {
+			res += "0" + hours;
 		} else {
-			res+=hours;
+			res += hours;
 		}
-		
-		res+=":";
+
+		res += ":";
 		int mins = dat.getMinutes();
-		
-		if(mins < 10) {
-			res+="0"+mins;
+
+		if (mins < 10) {
+			res += "0" + mins;
 		} else {
-			res+=mins;
+			res += mins;
 		}
-		
+
 		return res;
 	}
 }

@@ -6,8 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.rmi.RemoteException;
 
 import javax.swing.JButton;
@@ -30,7 +28,7 @@ public class ConnexionPanel extends JPanel {
 	protected JLabel logLabel, passLabel;
 	protected JTextField logTF;
 	protected JPasswordField passTF;
-	protected JButton registerButton;
+	protected JButton connectButton;
 	
 	public ConnexionPanel(ClientUI mFrame, IServer s) {
 		this.mainFrame = mFrame;
@@ -74,40 +72,34 @@ public class ConnexionPanel extends JPanel {
 		gbc.gridy = 3;
 		gbc.insets = new Insets(20, 0, 0, 0);
 		
-		this.add(configRegisterButton(), gbc);
+		this.add(configConnectButton(), gbc);
 	}
 
-	private JButton configRegisterButton() {
-		registerButton = new JButton("Connect");
+	private JButton configConnectButton() {
+		connectButton = new JButton("Connect");
 		
-		registerButton.setPreferredSize(new Dimension(150,28));
+		connectButton.setPreferredSize(new Dimension(150,28));
 		
-		registerButton.addActionListener(new ActionListener() {
+		connectButton.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				try {
-					IClient client = new Client(logTF.getText(), passTF.getText());
-					serv.connect(client, passTF.getText());
-					JOptionPane.showMessageDialog(null, "T'es co enculé");
+					ChatPanel cp = new ChatPanel(mainFrame, serv);
+					IClient client = new Client(logTF.getText(), passTF.getText(), cp);
+					if(serv.connect(client, passTF.getText())) {
+						JOptionPane.showMessageDialog(null, "[SUCCESS] You are now connected.");
+						mainFrame.setConnected(client);
+						mainFrame.setTitle("Chat - "+client.getLogin());
+						mainFrame.switchPanel(cp);
+					} else
+						JOptionPane.showMessageDialog(null, "[ERROR] Couldn't connect to the server."); 
 				} catch (RemoteException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-
-		registerButton.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-			
-			public void keyReleased(KeyEvent e) {
-			}
-			
-			public void keyPressed(KeyEvent e) {
-				if(e.equals(KeyEvent.VK_ENTER))
-					registerButton.doClick();
-			}
-		});
 		
-		return registerButton;
+		return connectButton;
 	}
 	
 }

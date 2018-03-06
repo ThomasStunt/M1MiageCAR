@@ -12,67 +12,78 @@ import interfaces.IServer;
 public class Server extends UnicastRemoteObject implements IServer {
 
 	private static final long serialVersionUID = 6753179322829639363L;
-	
+
 	protected Map<String, String> clientsRegistered;
 	protected Map<IClient, String> clientsConnected;
 	protected IClient servClient;
-	
+
 	public Server() throws RemoteException {
 		super();
 		clientsRegistered = new HashMap<String, String>();
 		clientsConnected = new HashMap<IClient, String>();
-		servClient = new Client("Server", "admin");
+		servClient = new Client("Server", "admin", null);
 	}
-	
+
 	@Override
-	public void register(IClient c, String pwd) throws RemoteException {
-		if(!clientsRegistered.containsKey(c.getLogin())) {
+	public boolean register(IClient c, String pwd) throws RemoteException {
+		if (!clientsRegistered.containsKey(c.getLogin())) {
 			clientsRegistered.put(c.getLogin(), pwd);
-			this.connect(c, pwd);
-			System.out.println("[INFO] Numbers of registered users : "+clientsRegistered.size());
+			return this.connect(c, pwd);
 		} else {
-			System.out.println("[ERROR] User already exists.");
+			return false;
 		}
-		
+
 	}
 
 	@Override
 	public boolean send(IMessage m) throws RemoteException {
-		for(IClient c : clientsConnected.keySet())
-			c.receive(m);
-		
-		return false;
+		if (m.getContent().charAt(0) == '@') {
+			IClient clientMP = null;
+			String words[] = m.getContent().substring(1, m.getContent().length()).split(" ");
+			for (IClient c : clientsConnected.keySet()) {
+				if (c.getLogin().toLowerCase().contentEquals(words[0].toLowerCase())) {
+					clientMP = c;
+				}
+			}
+			if (clientMP != null) {
+				clientMP.receive(m, true);
+				m.getSource().receive(m, false);
+			}
+			return true;
+		} else {
+			for (IClient c : clientsConnected.keySet())
+				c.receive(m, false);
+			return true;
+		}
 	}
 
 	@Override
 	public void disconnect(IClient c) throws RemoteException {
 		clientsConnected.remove(c);
-		IMessage iMsg = new Message(servClient, "[INFO] User "+c.getLogin()+" left the room.");
+		IMessage iMsg = new Message(servClient, "[INFO] User " + c.getLogin() + " left the room.", false);
 		this.send(iMsg);
-		System.out.println("[INFO] Numbers of connected users : "+clientsConnected.size());
 	}
 
 	@Override
 	public boolean connect(IClient c, String pwd) throws RemoteException {
 		boolean isConnected = false;
-		if(clientsRegistered.containsKey(c.getLogin()) && pwd.contentEquals(clientsRegistered.get(c.getLogin()))) {
-			if(clientsConnected.containsValue(c.getLogin())) {
+		if (clientsRegistered.containsKey(c.getLogin()) && pwd.contentEquals(clientsRegistered.get(c.getLogin()))) {
+			if (clientsConnected.containsValue(c.getLogin())) {
 				isConnected = true;
 			} else {
-				if(!isConnected) { 
+				if (!isConnected) {
 					clientsConnected.put(c, c.getLogin());
-					System.out.println("[INFO] Client "+c.getLogin()+" connected.");
-					IMessage iMsg = new Message(servClient, "[INFO] User "+c.getLogin()+" joined the room.");
+					IMessage iMsg = new Message(servClient, "[INFO] User " + c.getLogin() + " joined the room.", false);
 					this.send(iMsg);
 				}
 			}
-			System.out.println("[INFO] Numbers of connected users : "+clientsConnected.size());
 		} else {
 			System.out.println("[ERROR] Couldn't connect.");
+			isConnected = true;
 		}
 		return !isConnected;
 	}
-	
+
 	public Map<IClient, String> getClientsConnected() {
 		return clientsConnected;
 	}

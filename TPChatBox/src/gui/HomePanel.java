@@ -37,7 +37,7 @@ public class HomePanel extends JPanel {
 		gbc.insets = new Insets(10, 0, 10, 0);
 		
 		this.add(configConnectButton(), gbc);
-		this.add(registerButton, gbc);
+		this.add(configRegisterButton(), gbc);
 	}
 	
 	public JButton configConnectButton() {
@@ -64,6 +64,32 @@ public class HomePanel extends JPanel {
 		});
 		
 		return connectButton;
+	}
+	
+	public JButton configRegisterButton() {
+		registerButton = new JButton("Register");
+		registerButton.setPreferredSize(new Dimension(150,28));
+		
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainFrame.switchPanel(new InscriptionPanel(mainFrame, s));
+			}
+		});
+
+		registerButton.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+			}
+			
+			public void keyReleased(KeyEvent e) {
+			}
+			
+			public void keyPressed(KeyEvent e) {
+				if(e.equals(KeyEvent.VK_ENTER))
+					registerButton.doClick();
+			}
+		});
+		
+		return registerButton;
 	}
 	
 	public ClientUI getMainFrame() {
