@@ -1,4 +1,4 @@
-package M1Miage;
+package com.M1Miage.TPMiageBook;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
