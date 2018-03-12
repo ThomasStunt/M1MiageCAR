@@ -27,7 +27,7 @@ public class CompteurSeq {
 	/**
 	 * Counts every time a word appears in the sentence
 	 */
-	public synchronized void countWords() {
+	public void countWords() {
 		for(String s : words) {
 			if(s.contentEquals(".") || s.contentEquals(","))
 				continue;
