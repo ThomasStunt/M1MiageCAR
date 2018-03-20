@@ -5,31 +5,31 @@
 	<head>
 		<meta charset = "UTF-8">
 		<title>MiageBook - Connexion</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	</head>
 	<body>
 	
 		<%@include file="navbar.html" %>
 			
-			<!-- BIG SHAQ -->
-			<div class="container">
-				<h1>Connexion</h1>
-				<br/>
-				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="inputName">Nom de compte</label>
-						<input type="name" class="form-control" id="inputName" placeholder="Nom de compte" />
-					</div>
-					
-					<div class="form-group">
-						<label for="inputPwd">Mot de passe</label>
-						<input type="password" class="form-control" id="inputPwd" placeholder="Mot de passe" />
-					</div>
-					
-					<div class="form-group">
-						<button type="submit" class="btn btn-default">Se connecter</button>
-					</div>
-				</form>
-			</div>
+		<!-- BIG SHAQ -->
+		<div class="container">
+			<br/><h1>Connexion</h1>
+			<br/>
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="inputName">Pseudo</label>
+					<input type="name" class="form-control" id="inputName" placeholder="Pseudo" />
+				</div>
+				
+				<div class="form-group">
+					<label for="inputPwd">Mot de passe</label>
+					<input type="password" class="form-control" id="inputPwd" placeholder="Mot de passe" />
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-outline-dark">Se connecter</button>
+				</div>
+			</form>
+		</div>
 	</body>
 </html>

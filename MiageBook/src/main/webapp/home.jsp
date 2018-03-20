@@ -4,14 +4,14 @@
 <html>
 	<head>
 		<title>MiageBook</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	</head>
 	<body>
 			<%@include file="navbar.html" %>
 			
 			<!-- BIG SHAQ -->
 			<div class="container">
-				<h1>MiageBook</h1>
+				<br/><h1>MiageBook</h1>
 			</div>
 	</body>
 </html>
