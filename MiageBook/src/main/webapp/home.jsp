@@ -7,17 +7,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	</head>
 	<body>
-			<!-- Navbar -->
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="myindex.jsp">MiageBook</a>
-					</div>
-					<div class="navbar-right">
-						<a class="navbar-text navbar-link" href="connect.jsp"> Se connecter</a>
-					</div>		
-				</div>
-			</nav>
+			<%@include file="navbar.html" %>
 			
 			<!-- BIG SHAQ -->
 			<div class="container">
