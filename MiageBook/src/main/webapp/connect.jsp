@@ -3,9 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta charset = "UTF-8">
 		<title>MiageBook - Connexion</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		
+		<%@include file="header.html" %>
+		
 	</head>
 	<body>
 	

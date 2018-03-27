@@ -4,7 +4,9 @@
 <html>
 	<head>
 		<title>MiageBook</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		
+		<%@include file="header.html" %>
+
 	</head>
 	<body>
 			<%@include file="navbar.html" %>

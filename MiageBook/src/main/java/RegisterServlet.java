@@ -24,11 +24,6 @@ public class RegisterServlet extends HttpServlet {
     	mail = reqest.getParameter("inputMail");
     	pwd = reqest.getParameter("inputPwd");
     	
-    	String pwd2 = reqest.getParameter("confPwd");
-    	if(!pwd.contentEquals(pwd2)) {
-    		response.sendRedirect("register.jsp");
-    	}
-    	
     	userSession.setAttribute("name", name);
     	userSession.setMaxInactiveInterval(0);
     }

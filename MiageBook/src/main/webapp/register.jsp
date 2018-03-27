@@ -3,9 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta charset = "UTF-8">
 		<title>MiageBook - Inscription</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	
+		<%@include file="header.html" %>
+		
 	</head>
 	<body>
 	
@@ -28,7 +29,7 @@
 				
 				<div class="form-group">
 					<label for="inputPseudo">Pseudo : </label>
-					<input type="name" class="form-control" name="inputPseudo" placeholder="Pseudo" />
+					<input type="name" class="form-control" name="inputPseudo" id="inputPseudo" placeholder="Pseudo" />
 				</div>
 				
 				<div class="form-group">
@@ -38,16 +39,16 @@
 				
 				<div class="form-group">
 					<label for="inputPwd">Mot de passe : </label>
-					<input type="password" class="form-control" name="inputPwd" placeholder="Mot de passe" />
+					<input type="password" class="form-control" name="inputPwd" id="inputPwd" placeholder="Mot de passe" />
 				</div>
 				
 				<div class="form-group">
 					<label for="confPwd">Confirmer le mot de passe : </label>
-					<input type="password" class="form-control" name="confPwd" placeholder="Mot de passe" />
+					<input type="password" class="form-control" name="confPwd" id="confPwd" placeholder="Mot de passe" />
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-outline-dark">S'inscrire</button>
+					<button type="submit" id="submit" class="btn btn-outline-dark">S'inscrire</button>
 				</div>
 			</form>
 		</div>
