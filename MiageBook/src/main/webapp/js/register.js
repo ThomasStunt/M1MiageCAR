@@ -1,5 +1,7 @@
+var cont = true;
+
 function btnSubmit() {
-	var cont = true;
+	cont = true;
 	
 	$('#errorDiv').prop('hidden', true);
 	$('#errorDiv').empty();
@@ -8,10 +10,7 @@ function btnSubmit() {
 		if ($(this).val() === '' || $(this).val() === null) {
 			cont = false;
 			$('#errorDiv').append("<br /><font color='red'>Input "+$(this).attr('name')+" is empty.</font>");
-			
-			$("#registerForm").submit(function(e){
-		        e.preventDefault();
-		    });
+			return;
 		}
 	});
 
@@ -19,6 +18,13 @@ function btnSubmit() {
 	
 	if($('#inputPwd').val() !== $('#confPwd').val()) {
 		alert("Wrong matches");
+		cont = false;
+	}
+	
+	console.log(cont);
+	
+	if(cont === true) {
+		$('#registerForm').submit();
 	}
 };
 
