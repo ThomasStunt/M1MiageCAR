@@ -26,6 +26,10 @@ public class RegisterServlet extends HttpServlet {
     	
     	userSession.setAttribute("name", name);
     	userSession.setMaxInactiveInterval(0);
+    	
+    	System.out.println("mdr");
+    	
+    	response.sendRedirect("home.jsp");
     }
     
     @Override

@@ -7,6 +7,7 @@
 	
 		<%@include file="header.html" %>
 		
+		<script src="js/register.js"></script>
 	</head>
 	<body>
 	
@@ -16,25 +17,26 @@
 		<div class="container">
 			<br/><h1>Inscription</h1>
 			<br/>
-			<form class="form-horizontal" method="POST" action="/SimpleServlet/register">
+			<form class="form-horizontal" id="registerForm" method="POST" action="register">
+				
 				<div class="form-group">
 					<label for="inputName">Nom : </label>
-					<input type="name" class="form-control" name="inputName" placeholder="Nom de compte" />
+					<input class="form-control" name="inputName" placeholder="Nom" />
 				</div>
 				
 				<div class="form-group">
 					<label for="inputFirstname">Prénom : </label>
-					<input type="name" class="form-control" name="inputFirstname" placeholder="Prénom" />
+					<input class="form-control" name="inputFirstname" placeholder="Prénom" />
 				</div>
 				
 				<div class="form-group">
 					<label for="inputPseudo">Pseudo : </label>
-					<input type="name" class="form-control" name="inputPseudo" id="inputPseudo" placeholder="Pseudo" />
+					<input class="form-control" name="inputPseudo" id="inputPseudo" placeholder="Pseudo" />
 				</div>
 				
 				<div class="form-group">
 					<label for="inputMail">Mail : </label>
-					<input type="name" class="form-control" name="inputMail" placeholder="Mail" />
+					<input class="form-control" name="inputMail" placeholder="Mail" />
 				</div>
 				
 				<div class="form-group">
@@ -45,12 +47,14 @@
 				<div class="form-group">
 					<label for="confPwd">Confirmer le mot de passe : </label>
 					<input type="password" class="form-control" name="confPwd" id="confPwd" placeholder="Mot de passe" />
-				</div>
+				</div>	
 				
 				<div class="form-group">
-					<button type="submit" id="submit" class="btn btn-outline-dark">S'inscrire</button>
+					<button id="sbmButton" class="btn btn-outline-dark" onclick="btnSubmit()">S'inscrire</button>
 				</div>
 			</form>
+			
+			<div id="errorDiv" hidden></div>
 		</div>
 	</body>
 </html>
