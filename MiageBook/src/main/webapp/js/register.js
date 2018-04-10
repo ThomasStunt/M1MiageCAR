@@ -1,16 +1,16 @@
 var cont = true;
 
-function btnSubmit() {
-	cont = true;
+$('#sbmButton').click(function() {
+	console.log(cont);	
 	
 	$('#errorDiv').prop('hidden', true);
 	$('#errorDiv').empty();
 	
 	$('#registerForm input').each(function(i, val) {
-		if ($(this).val() === '' || $(this).val() === null) {
-			cont = false;
+		
+		if ($(this).val() === '') {
 			$('#errorDiv').append("<br /><font color='red'>Input "+$(this).attr('name')+" is empty.</font>");
-			return;
+			cont = false;
 		}
 	});
 
@@ -20,16 +20,16 @@ function btnSubmit() {
 		alert("Wrong matches");
 		cont = false;
 	}
-	
+
 	console.log(cont);
 	
-	if(cont === true) {
-		$('#registerForm').submit();
+	if(cont === false) {
+		return false;
+	} else {
+		return true;
 	}
-};
+});	
 
 $(document).ready( function () {
-	$('#inputPseudo').bind('input', function() {
-		console.log($(this).val());
-	});
+	
 })

@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 		
 		<!--  BIG SHAQ -->
 		<div class="container">
@@ -50,7 +50,7 @@
 				</div>	
 				
 				<div class="form-group">
-					<button id="sbmButton" class="btn btn-outline-dark" onclick="btnSubmit()">S'inscrire</button>
+					<button id="sbmButton" class="btn btn-outline-dark">S'inscrire</button>
 				</div>
 			</form>
 			

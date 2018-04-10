@@ -7,9 +7,10 @@
 		
 		<%@include file="header.html" %>
 
+		<script src="js/register.js"></script>
 	</head>
 	<body>
-			<%@include file="navbar.html" %>
+			<%@include file="navbar.jsp" %>
 			
 			<!-- BIG SHAQ -->
 			<div class="container">

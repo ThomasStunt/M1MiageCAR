@@ -10,7 +10,7 @@
 	</head>
 	<body>
 	
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 			
 		<!-- BIG SHAQ -->
 		<div class="container">
