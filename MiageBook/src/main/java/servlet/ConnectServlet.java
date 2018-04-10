@@ -19,9 +19,12 @@ public class ConnectServlet extends HttpServlet {
 	HttpSession userSession;
 	
 	@Override
-	protected void doGet(HttpServletRequest reqest, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest reqest, HttpServletResponse response) throws ServletException, IOException {
 		name = reqest.getParameter("inputPseudo");
 		pwd = reqest.getParameter("inputPwd");
+		
+		System.out.println("name :"+name);
+		System.out.println("pwd :"+pwd);
 		
 		try {
     		Class.forName("oracle.jdbc.driver.OracleDriver").newInstance(); 

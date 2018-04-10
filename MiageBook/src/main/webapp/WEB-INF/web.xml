@@ -3,28 +3,27 @@
   <display-name>MiageBook - REST App</display-name>
   <servlet>
     <servlet-name>registerServlet</servlet-name>
-    <servlet-class>RegisterServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+    <servlet-class>servlet.RegisterServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>disconnectServlet</servlet-name>
-  	<servlet-class>DisconnectServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+  	<servlet-class>servlet.DisconnectServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>connectServlet</servlet-name>
-  	<servlet-class>ConnectServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+  	<servlet-class>servlet.ConnectServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
     <servlet-name>registerServlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+  
   <servlet-mapping>
   	<servlet-name>disconnectServlet</servlet-name>
   	<url-pattern>/disconnect</url-pattern>
   </servlet-mapping>
+  
   <servlet-mapping>
   	<servlet-name>connectServlet</servlet-name>
   	<url-pattern>/connect</url-pattern>
