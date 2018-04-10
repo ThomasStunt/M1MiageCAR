@@ -3,7 +3,7 @@
 		<div class="navbar-header">
 			<a class="navbar-brand" href="home.jsp" style="color: white;">MiageBook</a>
 		</div>
-<% if (session.getAttribute("name") != null) { %>
+<% if (session.getAttribute("name") == null) { %>
 	    <div class="btn-toolbar">
 			<button type="button" class="btn btn-outline-light" onclick="location.href = 'register.jsp'">S'inscrire</button>
 			 &nbsp;

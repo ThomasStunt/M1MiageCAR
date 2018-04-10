@@ -16,15 +16,15 @@
 		<div class="container">
 			<br/><h1>Connexion</h1>
 			<br/>
-			<form class="form-horizontal">
+			<form class="form-horizontal" method="POST" action="connect">
 				<div class="form-group">
-					<label for="inputName">Pseudo</label>
-					<input type="name" class="form-control" id="inputName" placeholder="Pseudo" />
+					<label for="inputPseudo">Pseudo</label>
+					<input class="form-control" name="inputPseudo" id="inputPseudo" placeholder="Pseudo" />
 				</div>
 				
 				<div class="form-group">
 					<label for="inputPwd">Mot de passe</label>
-					<input type="password" class="form-control" id="inputPwd" placeholder="Mot de passe" />
+					<input type="password" class="form-control" name="inputPwd" id="inputPwd" placeholder="Mot de passe" />
 				</div>
 				
 				<div class="form-group">
