@@ -1,4 +1,4 @@
-package servlet;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -16,8 +16,11 @@ public class DisconnectServlet extends HttpServlet {
     protected void doGet(HttpServletRequest reqest, HttpServletResponse response) 
         throws ServletException, IOException {
 		
-		userSession = reqest.getSession(true);
+		userSession = reqest.getSession(false);
 		userSession.invalidate();
+		response.sendRedirect("localhost:8080/SimpleServlet/home.jsp");
+		
+		this.destroy();
 	}
     
     @Override
